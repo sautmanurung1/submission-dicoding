@@ -15,8 +15,8 @@ const addBook = (request, h) => {
 
   // Generate a unique ID for the new book
   const id = nanoid(16);
-  const createdAt = new Date().toISOString();
-  const updatedAt = createdAt;
+  const insertedAt = new Date().toISOString();
+  const updatedAt = insertedAt;
   const finished = pageCount === readPage;
 
   const newBook = {
@@ -30,7 +30,7 @@ const addBook = (request, h) => {
     readPage,
     finished,
     reading,
-    createdAt,
+    insertedAt,
     updatedAt,
   };
 
@@ -38,14 +38,14 @@ const addBook = (request, h) => {
   if (!name) {
     return h.response({
       status: 'fail',
-      message: 'Failed to add book. Please provide a book name.',
+      message: 'Gagal menambahkan buku. Mohon isi nama buku',
     }).code(400);
   }
 
   if (readPage > pageCount) {
     return h.response({
       status: 'fail',
-      message: 'Failed to add book. readPage cannot be greater than pageCount.',
+      message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
     }).code(400);
   }
 
@@ -54,7 +54,7 @@ const addBook = (request, h) => {
 
   return h.response({
     status: 'success',
-    message: 'Book added successfully.',
+    message: 'Buku berhasil ditambahkan',
     data: {
       bookId: id,
     },
@@ -116,7 +116,7 @@ const getBookById = (request, h) => {
 
   return h.response({
     status: 'fail',
-    message: 'Book not found.',
+    message: 'Buku tidak ditemukan',
   }).code(404);
 };
 
@@ -139,14 +139,14 @@ const updateBookById = (request, h) => {
   if (!name) {
     return h.response({
       status: 'fail',
-      message: 'Failed to update book. Please provide a book name.',
+      message: 'Gagal memperbarui buku. Mohon isi nama buku',
     }).code(400);
   }
 
   if (readPage > pageCount) {
     return h.response({
       status: 'fail',
-      message: 'Failed to update book. readPage cannot be greater than pageCount.',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     }).code(400);
   }
 
@@ -170,13 +170,13 @@ const updateBookById = (request, h) => {
 
     return h.response({
       status: 'success',
-      message: 'Book updated successfully.',
+      message: 'Buku berhasil diperbarui',
     }).code(200);
   }
 
   return h.response({
     status: 'fail',
-    message: 'Failed to update book. ID not found.',
+    message: 'Gagal memperbarui buku. Id tidak ditemukan',
   }).code(404);
 };
 
@@ -191,13 +191,13 @@ const deleteBookById = (request, h) => {
     books.splice(index, 1);
     return h.response({
       status: 'success',
-      message: 'Book deleted successfully.',
+      message: 'Buku berhasil dihapus',
     }).code(200);
   }
 
   return h.response({
     status: 'fail',
-    message: 'Failed to delete book. ID not found.',
+    message: 'Buku gagal dihapus. Id tidak ditemukan',
   }).code(404);
 };
 
